@@ -48,6 +48,7 @@ export default function components() {
             {name: "Nozzle Size", unit: "mm", input: `<input type="number" name={"params.name"} style="width:200px; padding-left: 20px;" step="0.1" min="1.0" max="2.5"/>`},
             {name: "No of Cylinders", unit: "n", input: `<select class="" id="exampleFormControlSelect1" style="width:200px; padding-left: 20px;"> <option>1</option></select>`},
         ],
+
         dynamicInput: [
             {name: "Engine Speed", unit: "RPM", value: 0},
             {name: "Manifold Absolute Pressure", unit: "Bar" , value: 0},
