@@ -43,10 +43,10 @@ export default function components() {
 
     const tableData = {
         staticInput: [
-            {name: "No of Stokes", unit: "n", input:'<select class="form-select" id="exampleFormControlSelect1"> <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>'},
-            {name: "Fuel Correction Factor", unit: "n", input: `<input type="text" name={"params.name"} />`},
-            {name: "Nozzle Size", unit: "cm", input: `<input type="text" name={"params.name"} />`},
-            {name: "No of Cylinders", unit: "n", input: `<input type="text" name={"params.name"} />`},
+            {name: "No of Stokes", unit: "n", input:'<select class="" id="exampleFormControlSelect1" style="width:200px; padding-left: 20px;"> <option>2</option><option>4</option></select>'},
+            {name: "Fuel Correction Factor", unit: "n", input: `<input type="number" name={"params.name"} style="width:200px; padding-left: 20px;" step="0.05" min="0.05" max="1"/>`},
+            {name: "Nozzle Size", unit: "mm", input: `<input type="number" name={"params.name"} style="width:200px; padding-left: 20px;" step="0.1" min="1.0" max="2.5"/>`},
+            {name: "No of Cylinders", unit: "n", input: `<select class="" id="exampleFormControlSelect1" style="width:200px; padding-left: 20px;"> <option>1</option></select>`},
         ],
         dynamicInput: [
             {name: "Engine Speed", unit: "RPM", value: 0},
