@@ -1,5 +1,6 @@
 import React from 'react';
 import parse from 'html-react-parser';
+import {useEffect, useState} from "react";
 
 
 const TableComponents =  function ({title, params}){
@@ -40,17 +41,93 @@ const TableComponents =  function ({title, params}){
 
 
 export default function components() {
+    const [values, setValues] = useState({
+        Noofstrokes: '4',
+        Fuelcorrectionfactor: '1',
+        Nozzlesize: '1.4',
+        Noofcylinders: '1'
+    });
 
+    useEffect(() => {
+        const storedValues = JSON.parse(localStorage.getItem('formValues'));
+        if (storedValues) {
+            setValues(storedValues);
+            // Set input values after setting state
+            const { Noofstrokes, Fuelcorrectionfactor, Nozzlesize, Noofcylinders } = storedValues;
+
+            document.getElementById("Fuelcorrectionfactor").value = Fuelcorrectionfactor;
+            document.getElementById("Nozzlesize").value = Nozzlesize;
+
+            // Select the option for Noofstrokes
+            const NoofstrokesSelect = document.getElementById("Noofstrokes");
+            for (let option of NoofstrokesSelect.options) {
+                if (option.text === Noofstrokes) {
+                    option.selected = true;
+                    break;
+                }
+            }
+
+            // Select the option for Noofcylinders
+            const NoofcylindersSelect = document.getElementById("Noofcylinders");
+            for (let option of NoofcylindersSelect.options) {
+                if (option.text === Noofcylinders) {
+                    option.selected = true;
+                    break;
+                }
+            }
+        }
+
+        const interval = setInterval(() => {
+            const Noofstrokes_e = document.getElementById("Noofstrokes");
+            const Noofstrokes = Noofstrokes_e.options[Noofstrokes_e.selectedIndex].text;
+
+            const Fuelcorrectionfactor = document.getElementById("Fuelcorrectionfactor").value;
+            const Nozzlesize = document.getElementById("Nozzlesize").value;
+
+            const Noofcylinders_e = document.getElementById("Noofcylinders");
+            const Noofcylinders = Noofcylinders_e.options[Noofcylinders_e.selectedIndex].text;
+
+            setValues({
+                Noofstrokes,
+                Fuelcorrectionfactor,
+                Nozzlesize,
+                Noofcylinders
+            });
+
+            
+            localStorage.setItem('formValues', JSON.stringify({
+                Noofstrokes,
+                Fuelcorrectionfactor,
+                Nozzlesize,
+                Noofcylinders
+            }));
+        }, 100); 
+
+        
+        return () => clearInterval(interval);
+    }, []);
      
 
-    
+    useEffect(() => {
+        const preventDefault = (e) => {
+            e.preventDefault();
+        };
+
+        document.addEventListener('contextmenu', preventDefault);
+        document.addEventListener('keydown', preventDefault);
+
+        return () => {
+            document.removeEventListener('contextmenu', preventDefault);
+            document.removeEventListener('keydown', preventDefault);
+        };
+    }, []);
 
     const tableData = {
         staticInput: [
-            {name: "No of Stokes", unit: "n", input:'<select class="" id="Noofstrokes" style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;"> <option>2</option><option selected >4</option></select>'},
-            {name: "Fuel Correction Factor", unit: "n", input: `<input type="number" id="Fuelcorrectionfactor" value ="1" name={"params.name"}  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" step="0.05" min="0.05" max="1"/>`},
-            {name: "Nozzle Size", unit: "mm", input: `<input type="number" id="Nozzlesize" name={"params.name"} value ="1.4"style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" step="0.1" min="1.0" max="2.5"/>`},
-            {name: "No of Cylinders", unit: "n", input: `<select class="" id="Noofcylinders" style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;"> <option selected>1</option></select>`},
+            {name: "No of Stokes", unit: "n", input:'<select class="" id="Noofstrokes" style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;"> <option>2</option><option  >4</option></select>'},
+            {name: "Fuel Correction Factor", unit: "n", input: `<input type="number" id="Fuelcorrectionfactor" defaultValue ="1" name={"params.name"}  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" step="0.05" min="0.05" max="1"/>`},
+            {name: "Nozzle Size", unit: "mm", input: `<input type="number" id="Nozzlesize" name={"params.name"} defaultValue ="1.4"style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" step="0.1" min="1.0" max="2.5"/>`},
+            {name: "No of Cylinders", unit: "n", input: `<select class="" id="Noofcylinders" style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;"> <option >1</option></select>`},
         ],
 
         dynamicInput: [
@@ -67,7 +144,7 @@ export default function components() {
     }
 
     // Program
-    function onchange(){
+    function updateOP(){
 
         // // static input
         // let Noofstrokes = 4;
@@ -116,7 +193,7 @@ export default function components() {
         document.getElementById("PWML").value = PWML;
 
     }
-    setInterval(onchange, 100);
+    setInterval(updateOP, 100);
 
     return(<>
         <div className="container-fluid" style={{padding: '2%'}}>
