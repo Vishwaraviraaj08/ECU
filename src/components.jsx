@@ -120,19 +120,59 @@ export default function components() {
     }, []);
      
 
+    // useEffect(() => {
+    //     const preventDefault = (e) => {
+    //         e.preventDefault();
+    //     };
+
+    //     document.addEventListener('contextmenu', preventDefault);
+    //     document.addEventListener('keydown', preventDefault);
+
+    //     return () => {
+    //         document.removeEventListener('contextmenu', preventDefault);
+    //         document.removeEventListener('keydown', preventDefault);
+    //     };
+    // }, []);
+
+
     useEffect(() => {
-        const preventDefault = (e) => {
-            e.preventDefault();
-        };
+        const xValues = [100,200,300,400,500,600,700,800,900,1000];
 
-        document.addEventListener('contextmenu', preventDefault);
-        document.addEventListener('keydown', preventDefault);
+        const args =  {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{ 
+                data: [860,1140,1060,1060,1070,1110,1330,2210,7830,2478],
+                borderColor: "red",
+                fill: false
+                }, { 
+                data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
+                borderColor: "green",
+                fill: false
+                }, { 
+                data: [300,700,2000,5000,6000,4000,2000,1000,200,100],
+                borderColor: "blue",
+                fill: false
+                }]
+            },
+            options: {
+                legend: {display: false},
+                animation: {
+                    duration: 0, 
+                },
+                hover: {
+                    animationDuration: 0, 
+                },
+                responsiveAnimationDuration: 0
+            }
+            };
 
-        return () => {
-            document.removeEventListener('contextmenu', preventDefault);
-            document.removeEventListener('keydown', preventDefault);
-        };
-    }, []);
+        new Chart("myChart1", args);
+        new Chart("myChart2", args);
+
+
+    }, [values]);
 
     const tableData = {
         staticInput: [
@@ -181,7 +221,6 @@ export default function components() {
         // Declare pwmOutPin as an integer
         let pwmOutPin = 23;
 
-        console.log("onchange");
         let Noofstrokes_e = document.getElementById("Noofstrokes");
         let Noofstrokes = Noofstrokes_e.options[Noofstrokes_e.selectedIndex].text;
 
@@ -203,6 +242,7 @@ export default function components() {
 
         document.getElementById("PWMH").value = PWMH;
         document.getElementById("PWML").value = PWML;
+        
 
     }
     setInterval(updateOP, 100);
@@ -230,6 +270,15 @@ export default function components() {
                             <TableComponents title={"Dynamic Output"} params={tableData.dynamicOutput}/>
                         </div>
                     </div>
+                </div>
+            </div>
+            <h2 className={"text-light px-2 mt-2"}>Graphs </h2>
+            <div className="row  mt-2">
+                <div className="col-lg-5 col-10 mx-auto" >
+                    <canvas id="myChart1" ></canvas>
+                </div>
+                <div className="col-lg-5 col-10 mx-auto" >
+                    <canvas id="myChart2" ></canvas>
                 </div>
             </div>
         </div>
