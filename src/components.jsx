@@ -6,9 +6,21 @@ import {useEffect, useState} from "react";
 const TableComponents =  function ({title, params}){
     // console.log( typeof  params[0].input);
     return(<>
-        <h2 className={"text-light"}>{title}</h2>
+        <style>
+            {`
+            h2{
+            background-color: rgba(255, 255, 255, 0.05) !important;
+            border-radius: 16px !important;
+            
+            backdrop-filter: blur(5px) !important;
+            -webkit-backdrop-filter: blur(5px) !important;
+            }
+            `}
 
-        <table className="table table-dark table-hover mb-5">
+        </style>
+        <h2 className={"text-light px-2 "}>{title}</h2>
+
+        <table className="table table-dark table-hover mb-5" >
             <thead>
             <tr>
                 <th scope="col">Sl No</th>
@@ -198,7 +210,7 @@ export default function components() {
     return(<>
         <div className="container-fluid" style={{padding: '2%'}}>
             <div className="row">
-                <div className="col">
+                <div className="col me-5">
                     <div className="row">
                         <div className="col">
                             <TableComponents title={"Static Input"} params={tableData.staticInput}/>
@@ -209,19 +221,13 @@ export default function components() {
                            <TableComponents title={"Dynamic Input"} params={tableData.dynamicInput}/>
                        </div>
                     </div>
-                    <div className="row">
-                       <div className="col">
-                           <TableComponents title={"Dynamic Output"} params={tableData.dynamicOutput}/>
-                       </div>
-                    </div>
+
                 </div>
-                <div className="col">
+                <div className="col my-auto">
+
                     <div className="row">
                         <div className="col">
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col">
+                            <TableComponents title={"Dynamic Output"} params={tableData.dynamicOutput}/>
                         </div>
                     </div>
                 </div>

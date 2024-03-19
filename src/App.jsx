@@ -1,17 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {useState} from 'react'
 import './App.css'
 import Components from "./components.jsx";
+import Background from "./background.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <Components />
-    </>
-  )
+    return (<>
+        <Background/>
+
+        <Components/>
+        </>)
 }
 
 export default App
