@@ -120,19 +120,19 @@ export default function components() {
     }, []);
      
 
-    // useEffect(() => {
-    //     const preventDefault = (e) => {
-    //         e.preventDefault();
-    //     };
+    useEffect(() => {
+        const preventDefault = (e) => {
+            e.preventDefault();
+        };
 
-    //     document.addEventListener('contextmenu', preventDefault);
-    //     document.addEventListener('keydown', preventDefault);
+        document.addEventListener('contextmenu', preventDefault);
+        document.addEventListener('keydown', preventDefault);
 
-    //     return () => {
-    //         document.removeEventListener('contextmenu', preventDefault);
-    //         document.removeEventListener('keydown', preventDefault);
-    //     };
-    // }, []);
+        return () => {
+            document.removeEventListener('contextmenu', preventDefault);
+            document.removeEventListener('keydown', preventDefault);
+        };
+    }, []);
 
 
     useEffect(() => {
@@ -272,7 +272,7 @@ export default function components() {
                     </div>
                 </div>
             </div>
-            <h2 className={"text-light px-2 mt-2"}>Graphs </h2>
+            <h2 className={"text-light text-center px-2"} style={{margin: '5% auto ', width:'30%',  padding: '1%'}}>Graphs </h2>
             <div className="row  mt-2">
                 <div className="col-lg-5 col-10 mx-auto" >
                     <canvas id="myChart1" ></canvas>
