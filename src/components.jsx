@@ -183,6 +183,10 @@ export default function components() {
                                 max: 20,
                                 min: 0,
                                 stepSize: 0.2
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'inj dose(ms)'
                             }
                         },
                         {
@@ -194,8 +198,21 @@ export default function components() {
                             max: 2.5,
                             min: 0,
                             stepSize: 0.5
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'multiplier'
                         }
-                    }]
+                    }],
+                    xAxes: [
+                        {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'MAP'
+                            }
+                        }
+                    ]
                 },
                 legend: { display: false },
                 animation: {
@@ -309,7 +326,6 @@ export default function components() {
                         <img src="/images/vebu.png" alt="" style={{width: '150px', height:'auto', objectFit: 'contain', }}/>
                     </div>
                     
-                    <h2 className={"text-light text-center px-2"} style={{ margin: '0 auto ', width: '30%', padding: '1%' }}>Graphs </h2>
                     <div className="row  mb-4">
                         <div className=" col-10 mx-auto" >
                             <canvas id="myChart1" ></canvas>
