@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 
-function Trim(){
+function Trim({values}){
     useEffect(() => {
         handleChange();
-    }, []);
+    }, [values]);
 
     function handleChange(){
         let nozzleSize = document.getElementById("Nozzlesize").value;
@@ -45,7 +45,7 @@ function Trim(){
                     </tr>
                     <tr>
                         <td>Nozzle Size</td>
-                        <td ><input type="number" readOnly id={"NozzlesizeCorrection"} defaultValue="" /></td>
+                        <td ><input type="number" readOnly value={values.Nozzlesize} /></td>
                     </tr>
                     <tr>
                         <td>CFNO</td>
@@ -57,14 +57,14 @@ function Trim(){
     </>)
 }
 
-function GasPressure(){
+function GasPressure({values}){
     useEffect(() => {
         handleChange();
-    }, []);
+    }, [values]);
     function handleChange(){
-        let gasPressure = document.getElementById("Gaspressure").value;
-        let GasPressureMin = document.getElementById("GasPressureMin").value;
-        let GasPressureMax = document.getElementById("GasPressureMax").value;
+        let gasPressure = parseInt(document.getElementById("Gaspressure").value);
+        let GasPressureMin = parseInt(document.getElementById("GasPressureMin").value);
+        let GasPressureMax = parseInt(document.getElementById("GasPressureMax").value);
         if(gasPressure >= GasPressureMin && gasPressure <= GasPressureMax){
             document.getElementById("cfgp").value = 1;
         }
@@ -107,7 +107,7 @@ function GasPressure(){
                     </tr>
                     <tr>
                         <td>Gas pressure</td>
-                        <td ><input type="number" readOnly id={"GasPressureCorrection"} defaultValue="" /></td>
+                        <td ><input type="number" readOnly value={values.Gaspressure} /></td>
                     </tr>
                     <tr>
                         <td>CFGP</td>
@@ -119,15 +119,15 @@ function GasPressure(){
     </>)
 }
 
-function GasTemperature(){
+function GasTemperature({values}){
     useEffect(() => {
         handleChange();
-    }, []);
+    }, [values]);
     function handleChange(){
-        let GasTemperatureMin = document.getElementById("GasTemperatureMin").value;
-        let GasTemperatureMax = document.getElementById("GasTemperatureMax").value;
-        let gasTemperature = document.getElementById("Gastemperature").value;
-        if(gasTemperature >= GasTemperatureMin && gasTemperature <= GasTemperatureMax){
+        let GasTemperatureMin = parseInt(document.getElementById("GasTemperatureMin").value);
+        let GasTemperatureMax = parseInt(document.getElementById("GasTemperatureMax").value);
+        let gasTemperature = parseInt(document.getElementById("Gastemperature").value);
+        if(gasTemperature >= parseInt(GasTemperatureMin && gasTemperature <= GasTemperatureMax)){
         document.getElementById("cfgt").value = 1;
         }
         else{
@@ -168,7 +168,7 @@ function GasTemperature(){
                     </tr>
                     <tr>
                         <td>Gas Temperature</td>
-                        <td ><input type="number" readOnly id={"GasTemperatureCorrection"} defaultValue="" /></td>
+                        <td ><input type="number" readOnly value={values.Gastemperature} /></td>
                     </tr>
                     <tr>
                         <td>CFGT</td>
@@ -181,14 +181,15 @@ function GasTemperature(){
 }
 
 
-function StartingDose(){
+function StartingDose({values}){
     useEffect(() => {
         handleChange();
-    }, []);
+    }, [values]);
 
     function handleChange(){
-        let Enginespeed = document.getElementById("Enginespeed").value;
-        let StartingDoseSpeed = document.getElementById("StartingDoseSpeed").value;
+        let Enginespeed = parseInt(document.getElementById("Enginespeed").value);
+        let StartingDoseSpeed = parseInt(document.getElementById("StartingDoseSpeed").value);
+        // console.log('Enginespeed', Enginespeed, 'StartingDoseSpeed', StartingDoseSpeed,Enginespeed <= StartingDoseSpeed);
         if(Enginespeed <= StartingDoseSpeed){
             document.getElementById("cfss").value = document.getElementById("Startingdose").value;
         }
@@ -226,7 +227,7 @@ function StartingDose(){
                     </tr>
                     <tr>
                         <td>Engine Speed</td>
-                        <td ><input type="number" readOnly id={"EngineSpeedCorrection"} defaultValue="" /></td>
+                        <td ><input type="number" readOnly value={values.Enginespeed} /></td>
                     </tr>
                     <tr>
                         <td>CFSS</td>
@@ -238,36 +239,36 @@ function StartingDose(){
     </>)
 }
 
-export default function Correction() {
+export default function Correction({values}) {
     
-    function copyDataFunc(fromId, toId, div = false){
-        return () => {
-            let from = document.getElementById(fromId).value;
-            if(div){
-                document.getElementById(toId).innerHTML = from;
-            }
-            else{
-                document.getElementById(toId).value = from;
-            }
-        }
-    }
+    // function copyDataFunc(fromId, toId, div = false){
+    //     return () => {
+    //         let from = document.getElementById(fromId).value;
+    //         if(div){
+    //             document.getElementById(toId).innerHTML = from;
+    //         }
+    //         else{
+    //             document.getElementById(toId).value = from;
+    //         }
+    //     }
+    // }
 
-    useEffect(() => {
-        setInterval(copyDataFunc("Nozzlesize", "NozzlesizeCorrection", ), 1000);
-        setInterval(copyDataFunc("Gaspressure", "GasPressureCorrection" ), 1000);
-        setInterval(copyDataFunc("Gastemperature", "GasTemperatureCorrection" ), 1000);
-        setInterval(copyDataFunc("Enginespeed", "EngineSpeedCorrection" ), 1000);
-    }, []);
+    // useEffect(() => {
+    //     copyDataFunc("Nozzlesize", "NozzlesizeCorrection", )();
+    //     copyDataFunc("Gaspressure", "GasPressureCorrection" )();
+    //     copyDataFunc("Gastemperature", "GasTemperatureCorrection" )();
+    //     copyDataFunc("Enginespeed", "EngineSpeedCorrection" )();
+    // }, [values]);
   
     return (
     
     <>
      <div className="container-fluid">
         <div className='row'>
-            <Trim/> 
-            <GasPressure/>
-            <GasTemperature/>
-            <StartingDose/>
+            <Trim values={values}/> 
+            <GasPressure values={values}/>
+            <GasTemperature values={values}/>
+            <StartingDose values={values}/>
         </div>
      </div>
     </>

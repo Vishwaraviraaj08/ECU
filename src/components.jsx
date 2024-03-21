@@ -62,37 +62,97 @@ export default function components() {
         Fuelcorrectionfactor: '1',
         Nozzlesize: '1.4',
         Noofcylinders: '1',
-        startingdose: '5.0'
+        Startingdose: '5.0',
+        Enginespeed: '500',
+        Gaspressure: '1.2',
+        Gastemperature: '50',
+        MAP: '0.1',
+        Exhausttemperature: '200'
     });
 
     useEffect(() => {
         const storedValues = JSON.parse(localStorage.getItem('formValues'));
         if (storedValues) {
-            setValues(storedValues);
-            // Set input values after setting state
-            const { Noofstrokes, Fuelcorrectionfactor, Nozzlesize, Noofcylinders, Startingdose } = storedValues;
+            const defaultValue = {
+                Noofstrokes: '4',
+                Fuelcorrectionfactor: '1',
+                Nozzlesize: '1.4',
+                Noofcylinders: '1',
+                Startingdose: '5.0',
+                Enginespeed: '500',
+                Gaspressure: '1.2',
+                Gastemperature: '50',
+                MAP: '0.1',
+                Exhausttemperature: '200'
+            };
+            console.log(defaultValue.Enginespeed)
+            const { Noofstrokes, Fuelcorrectionfactor, Nozzlesize, Noofcylinders, Startingdose, Enginespeed, Gaspressure, Gastemperature, MAP, Exhausttemperature} = storedValues;
 
-            document.getElementById("Fuelcorrectionfactor").value = Fuelcorrectionfactor;
-            document.getElementById("Nozzlesize").value = Nozzlesize;
-            document.getElementById("Startingdose").value = Startingdose;
+            let fcf = (Fuelcorrectionfactor != undefined) ? Fuelcorrectionfactor: defaultValue.Fuelcorrectionfactor;
+            document.getElementById("Fuelcorrectionfactor").value = fcf;
+            let ns = (Nozzlesize != undefined) ? Nozzlesize: defaultValue.Nozzlesize;
+            document.getElementById("Nozzlesize").value = ns;
+            let sd = (Startingdose != undefined) ? Startingdose: defaultValue.Startingdose;
+            document.getElementById("Startingdose").value = sd;
+            let es = (Enginespeed != undefined) ? Enginespeed: defaultValue.Enginespeed;
+            console.log(es, (Enginespeed != undefined), Enginespeed, defaultValue.Enginespeed);
+            document.getElementById("Enginespeed").value = es;
+            let gp = (Gaspressure != undefined) ? Gaspressure: defaultValue.Gaspressure;
+            document.getElementById("Gaspressure").value = gp;
+            let gt = (Gastemperature != undefined) ? Gastemperature: defaultValue.Gastemperature;
+            document.getElementById("Gastemperature").value = gt;
+            let m = (MAP != undefined) ? MAP: defaultValue.MAP;
+            document.getElementById("MAP").value = m;
+            let et = (Exhausttemperature != undefined) ? Exhausttemperature: defaultValue.Exhausttemperature;
+            console.log(et);
+            document.getElementById("Exhausttemperature").value = et;
 
             // Select the option for Noofstrokes
+            let nos = (Noofstrokes != undefined) ? Noofstrokes: defaultValue.Noofstrokes;
             const NoofstrokesSelect = document.getElementById("Noofstrokes");
             for (let option of NoofstrokesSelect.options) {
-                if (option.text === Noofstrokes) {
+                if (option.text === nos) {
                     option.selected = true;
                     break;
                 }
             }
 
             // Select the option for Noofcylinders
+            let noc = (Noofcylinders != undefined) ? Noofcylinders: defaultValue.Noofcylinders;
             const NoofcylindersSelect = document.getElementById("Noofcylinders");
             for (let option of NoofcylindersSelect.options) {
-                if (option.text === Noofcylinders) {
+                if (option.text === noc) {
                     option.selected = true;
                     break;
                 }
             }
+            const data = {
+                Noofstrokes: nos,
+                Fuelcorrectionfactor: fcf,
+                Nozzlesize: ns,
+                Noofcylinders: noc,
+                Startingdose: sd,
+                Enginespeed: es,
+                Gaspressure: gp,
+                Gastemperature: gt,
+                MAP: m,
+                Exhausttemperature: et
+            }
+            setValues(data);
+        }else{
+            const defaultValue = {
+                Noofstrokes: '4',
+                Fuelcorrectionfactor: '1',
+                Nozzlesize: '1.4',
+                Noofcylinders: '1',
+                Startingdose: '5.0',
+                Enginespeed: '500',
+                Gaspressure: '1.2',
+                Gastemperature: '50',
+                MAP: '0.1',
+                Exhausttemperature: '200'
+            };
+            setValues(defaultValue);
         }
 
         const interval = setInterval(() => {
@@ -102,6 +162,11 @@ export default function components() {
             const Fuelcorrectionfactor = document.getElementById("Fuelcorrectionfactor").value;
             const Nozzlesize = document.getElementById("Nozzlesize").value;
             const Startingdose = document.getElementById("Startingdose").value;
+            const Enginespeed = document.getElementById("Enginespeed").value;
+            const Gaspressure = document.getElementById("Gaspressure").value;
+            const Gastemperature = document.getElementById("Gastemperature").value;
+            const MAP = document.getElementById("MAP").value;
+            const Exhausttemperature = document.getElementById("Exhausttemperature").value;
 
             const Noofcylinders_e = document.getElementById("Noofcylinders");
             const Noofcylinders = Noofcylinders_e.options[Noofcylinders_e.selectedIndex].text;
@@ -113,7 +178,12 @@ export default function components() {
                 Fuelcorrectionfactor,
                 Nozzlesize,
                 Noofcylinders,
-                Startingdose
+                Startingdose,
+                Enginespeed,
+                Gaspressure,
+                Gastemperature,
+                MAP,
+                Exhausttemperature
             });
 
 
@@ -122,7 +192,12 @@ export default function components() {
                 Fuelcorrectionfactor,
                 Nozzlesize,
                 Noofcylinders,
-                Startingdose
+                Startingdose,
+                Enginespeed,
+                Gaspressure,
+                Gastemperature,
+                MAP,
+                Exhausttemperature
             }));
         }, 100);
 
@@ -201,19 +276,19 @@ export default function components() {
                             }
                         },
                         {
-                        id: 'right',
-                        display: true,
-                        position: 'right',
-                        ticks: {
-                            beginAtZero: true,
-                            max: 2.5,
-                            min: 0,
-                            stepSize: 0.5
-                        },
-                        scaleLabel: {
+                            id: 'right',
                             display: true,
-                            labelString: 'multiplier'
-                        }
+                            position: 'right',
+                            ticks: {
+                                beginAtZero: true,
+                                max: 2.5,
+                                min: 0,
+                                stepSize: 0.5
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'multiplier'
+                            }
                     }],
                     xAxes: [
                         {
@@ -221,7 +296,8 @@ export default function components() {
                             scaleLabel: {
                                 display: true,
                                 labelString: 'MAP'
-                            }
+                            },
+                            
                         }
                     ]
                 },
@@ -251,68 +327,58 @@ export default function components() {
         ],
 
         dynamicInput: [
-            { name: "Engine Speed", unit: "RPM", input: '<input value="500" id="Enginespeed" readonly style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-            { name: "Manifold Absolute Pressure", unit: "Bar", input: '<input id="MAP" value="0.1" readonly style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-            { name: "Exhaust Temperatire", unit: "Deg C", input: '<input value="200" id="Exhausttemperature" readonly style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-            { name: "Gas Temperature", unit: "Deg C", input: '<input value="50" id="Gastemperature" readonly style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-            { name: "Gas Presure", unit: "Bar", input: '<input value="1.2" id="Gaspressure" readonly style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-            { name: "PWM H", unit: "ms", input: '<input value="0" id="PWMH" readonly style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-            { name: "PWM L", unit: "ms", input: '<input value="0" id="PWML" readonly style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "Engine Speed", unit: "RPM", input: '<input defaultValue="500" id="Enginespeed"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "Manifold Absolute Pressure", unit: "Bar", input: '<input id="MAP" defaultValue="0.1"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "Exhaust Temperatire", unit: "Deg C", input: '<input defaultValue="200" id="Exhausttemperature"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "Gas Temperature", unit: "Deg C", input: '<input defaultValue="50" id="Gastemperature"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "Gas Presure", unit: "Bar", input: '<input defaultValue="1.2" id="Gaspressure"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "PWM H", unit: "ms", input: '<input defaultValue="0" id="PWMH"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "PWM L", unit: "ms", input: '<input defaultValue="0" id="PWML"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
         ]
 
     }
 
     // Program
-    function updateOP() {
+    useEffect(() => {
+        function updateOP() {
+            // Program inputs
+            let Bmultipliergainx = -1;
+            let Bmultiplieroffset = 2;
 
-        // // static input
-        // let Noofstrokes = 4;
-        // let Fuelcorrectionfactor = 1;
-        // let Nozzlesize = 1.4;
-        // let Noofcylinders = 1;
+            let PWMHgainx2 = -15;
+            let PWMHgainx = 30;
+            let PWMHoffset = 1;
 
-        // // dynamic input
-        // let Enginespeed = 500;
-        // let MAP = 0.1;
-        // let Exhausttemperature = 200;
-        // let Gastemperature = 50;
+            // Declare pwmOutPin as an integer
+            let pwmOutPin = 23;
 
-        // Program inputs
-        let Bmultipliergainx = -1;
-        let Bmultiplieroffset = 2;
+            let Noofstrokes_e = document.getElementById("Noofstrokes");
+            let Noofstrokes = Noofstrokes_e.options[Noofstrokes_e.selectedIndex].text;
 
-        let PWMHgainx2 = -15;
-        let PWMHgainx = 30;
-        let PWMHoffset = 1;
+            let Fuelcorrectionfactor = document.getElementById("Fuelcorrectionfactor").value;
+            let Nozzlesize = document.getElementById("Nozzlesize").value;
 
-        // Declare pwmOutPin as an integer
-        let pwmOutPin = 23;
-
-        let Noofstrokes_e = document.getElementById("Noofstrokes");
-        let Noofstrokes = Noofstrokes_e.options[Noofstrokes_e.selectedIndex].text;
-
-        let Fuelcorrectionfactor = document.getElementById("Fuelcorrectionfactor").value;
-        let Nozzlesize = document.getElementById("Nozzlesize").value;
-
-        let Noofcylinders_e = document.getElementById("Noofcylinders");
-        let Noofcylinders = Noofcylinders_e.options[Noofcylinders_e.selectedIndex].text;
+            let Noofcylinders_e = document.getElementById("Noofcylinders");
+            let Noofcylinders = Noofcylinders_e.options[Noofcylinders_e.selectedIndex].text;
 
 
 
-        let Enginespeed = document.getElementById("Enginespeed").value;
-        let MAP = document.getElementById("MAP").value;
-        let Exhausttemperature = document.getElementById("Exhausttemperature").value;
-        let Gastemperature = document.getElementById("Gastemperature").value;
+            let Enginespeed = document.getElementById("Enginespeed").value;
+            let MAP = document.getElementById("MAP").value;
+            let Exhausttemperature = document.getElementById("Exhausttemperature").value;
+            let Gastemperature = document.getElementById("Gastemperature").value;
 
-        let PWMH = (((PWMHgainx2 * MAP * MAP) + (PWMHgainx * MAP) + PWMHoffset) * ((Bmultipliergainx * MAP) + Bmultiplieroffset) * Fuelcorrectionfactor);
-        let PWML = (1000 - (PWMH * ((Enginespeed / 60) / (Noofstrokes / 2)))) / ((Enginespeed / 60) / (Noofstrokes / 2));
+            let PWMH = (((PWMHgainx2 * MAP * MAP) + (PWMHgainx * MAP) + PWMHoffset) * ((Bmultipliergainx * MAP) + Bmultiplieroffset) * Fuelcorrectionfactor);
+            let PWML = (1000 - (PWMH * ((Enginespeed / 60) / (Noofstrokes / 2)))) / ((Enginespeed / 60) / (Noofstrokes / 2));
 
-        document.getElementById("PWMH").value = PWMH;
-        document.getElementById("PWML").value = PWML;
+            document.getElementById("PWMH").value = PWMH;
+            document.getElementById("PWML").value = PWML;
 
 
-    }
-    setInterval(updateOP, 100);
+        }
+        updateOP();
+    }, [values]);
+    
 
     return (<>
         <div className="container-fluid" style={{ padding: '2%' }}>
@@ -347,6 +413,6 @@ export default function components() {
 
         </div>
         <Calibration/>
-        <Correction/>
+        <Correction values={values}/>
     </>)
 }
