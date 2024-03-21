@@ -195,17 +195,9 @@ export default function components() {
 
 
     useEffect(() => {
-        const preventDefault = (e) => {
+        document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
-        };
-    
-        document.addEventListener('contextmenu', preventDefault);
-        document.addEventListener('keydown', preventDefault);
-    
-        return () => {
-            document.removeEventListener('contextmenu', preventDefault);
-            document.removeEventListener('keydown', preventDefault);
-        };
+          });
     }, []);
 
 
@@ -315,13 +307,13 @@ export default function components() {
         ],
 
         dynamicInput: [
-            { name: "Engine Speed", unit: "RPM", input: '<input defaultValue="500" id="Enginespeed"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-            { name: "Manifold Absolute Pressure", unit: "Bar", input: '<input id="MAP" defaultValue="0.1"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-            { name: "Exhaust Temperatire", unit: "Deg C", input: '<input defaultValue="200" id="Exhausttemperature"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-            { name: "Gas Temperature", unit: "Deg C", input: '<input defaultValue="50" id="Gastemperature"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-            { name: "Gas Presure", unit: "Bar", input: '<input defaultValue="1.2" id="Gaspressure"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-            { name: "PWM H", unit: "ms", input: '<input defaultValue="0" id="PWMH"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-            { name: "PWM L", unit: "ms", input: '<input defaultValue="0" id="PWML"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "Engine Speed", unit: "RPM", input: '<input readonly defaultValue="500" id="Enginespeed"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "Manifold Absolute Pressure", unit: "Bar", input: '<input id="MAP" readonly defaultValue="0.1"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "Exhaust Temperatire", unit: "Deg C", input: '<input readonly defaultValue="200" id="Exhausttemperature"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "Gas Temperature", unit: "Deg C", input: '<input readonly defaultValue="50" id="Gastemperature"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "Gas Presure", unit: "Bar", input: '<input readonly defaultValue="1.2" id="Gaspressure"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "PWM H", unit: "ms", input: '<input readonly defaultValue="0" id="PWMH"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "PWM L", unit: "ms", input: '<input readonly defaultValue="0" id="PWML"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
         ]
 
     }
