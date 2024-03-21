@@ -1,6 +1,7 @@
 import React from 'react';
 import parse from 'html-react-parser';
 import { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 
 
 const TableComponents = function ({ title, params }) {
@@ -120,19 +121,19 @@ export default function components() {
     }, []);
 
 
-    useEffect(() => {
-        const preventDefault = (e) => {
-            e.preventDefault();
-        };
-
-        document.addEventListener('contextmenu', preventDefault);
-        document.addEventListener('keydown', preventDefault);
-
-        return () => {
-            document.removeEventListener('contextmenu', preventDefault);
-            document.removeEventListener('keydown', preventDefault);
-        };
-    }, []);
+    // useEffect(() => {
+    //     const preventDefault = (e) => {
+    //         e.preventDefault();
+    //     };
+    //
+    //     document.addEventListener('contextmenu', preventDefault);
+    //     document.addEventListener('keydown', preventDefault);
+    //
+    //     return () => {
+    //         document.removeEventListener('contextmenu', preventDefault);
+    //         document.removeEventListener('keydown', preventDefault);
+    //     };
+    // }, []);
 
 
     useEffect(() => {
@@ -320,7 +321,9 @@ export default function components() {
 
                 </div>
                 <div className="col ">
-                    <div className="row mb-5 d-flex flex-row justify-content-end">
+
+                    <div className="row mb-5 d-flex flex-row justify-content-end align-items-center">
+                        <div style={{width: '150px'}} className={"me-5"}><Link to={'/calibration'}><button type="button" className="btn btn-primary">Calibrations</button></Link></div>
                         <img src="/images/abhivijay.png" alt="" style={{width: '150px', height:'auto', objectFit: 'contain', }}/>
                         <img src="/images/spark.png" alt="" style={{width: '150px', height:'auto', objectFit: 'contain', }}/>
                         <img src="/images/vebu.png" alt="" style={{width: '150px', height:'auto', objectFit: 'contain', }}/>
