@@ -241,25 +241,6 @@ function StartingDose({values}){
 
 export default function Correction({values}) {
     
-    // function copyDataFunc(fromId, toId, div = false){
-    //     return () => {
-    //         let from = document.getElementById(fromId).value;
-    //         if(div){
-    //             document.getElementById(toId).innerHTML = from;
-    //         }
-    //         else{
-    //             document.getElementById(toId).value = from;
-    //         }
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     copyDataFunc("Nozzlesize", "NozzlesizeCorrection", )();
-    //     copyDataFunc("Gaspressure", "GasPressureCorrection" )();
-    //     copyDataFunc("Gastemperature", "GasTemperatureCorrection" )();
-    //     copyDataFunc("Enginespeed", "EngineSpeedCorrection" )();
-    // }, [values]);
-  
     return (
     
     <>

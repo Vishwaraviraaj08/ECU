@@ -72,19 +72,20 @@ export default function components() {
 
     useEffect(() => {
         const storedValues = JSON.parse(localStorage.getItem('formValues'));
+        const defaultValue = {
+            Noofstrokes: '4',
+            Fuelcorrectionfactor: '1',
+            Nozzlesize: '1.4',
+            Noofcylinders: '1',
+            Startingdose: '5.0',
+            Enginespeed: '500',
+            Gaspressure: '1.2',
+            Gastemperature: '50',
+            MAP: '0.1',
+            Exhausttemperature: '200'
+        };
         if (storedValues) {
-            const defaultValue = {
-                Noofstrokes: '4',
-                Fuelcorrectionfactor: '1',
-                Nozzlesize: '1.4',
-                Noofcylinders: '1',
-                Startingdose: '5.0',
-                Enginespeed: '500',
-                Gaspressure: '1.2',
-                Gastemperature: '50',
-                MAP: '0.1',
-                Exhausttemperature: '200'
-            };
+            
             console.log(defaultValue.Enginespeed)
             const { Noofstrokes, Fuelcorrectionfactor, Nozzlesize, Noofcylinders, Startingdose, Enginespeed, Gaspressure, Gastemperature, MAP, Exhausttemperature} = storedValues;
 
@@ -95,7 +96,6 @@ export default function components() {
             let sd = (Startingdose != undefined) ? Startingdose: defaultValue.Startingdose;
             document.getElementById("Startingdose").value = sd;
             let es = (Enginespeed != undefined) ? Enginespeed: defaultValue.Enginespeed;
-            console.log(es, (Enginespeed != undefined), Enginespeed, defaultValue.Enginespeed);
             document.getElementById("Enginespeed").value = es;
             let gp = (Gaspressure != undefined) ? Gaspressure: defaultValue.Gaspressure;
             document.getElementById("Gaspressure").value = gp;
@@ -104,7 +104,6 @@ export default function components() {
             let m = (MAP != undefined) ? MAP: defaultValue.MAP;
             document.getElementById("MAP").value = m;
             let et = (Exhausttemperature != undefined) ? Exhausttemperature: defaultValue.Exhausttemperature;
-            console.log(et);
             document.getElementById("Exhausttemperature").value = et;
 
             // Select the option for Noofstrokes
@@ -126,7 +125,7 @@ export default function components() {
                     break;
                 }
             }
-            const data = {
+            let data = {
                 Noofstrokes: nos,
                 Fuelcorrectionfactor: fcf,
                 Nozzlesize: ns,
@@ -140,18 +139,7 @@ export default function components() {
             }
             setValues(data);
         }else{
-            const defaultValue = {
-                Noofstrokes: '4',
-                Fuelcorrectionfactor: '1',
-                Nozzlesize: '1.4',
-                Noofcylinders: '1',
-                Startingdose: '5.0',
-                Enginespeed: '500',
-                Gaspressure: '1.2',
-                Gastemperature: '50',
-                MAP: '0.1',
-                Exhausttemperature: '200'
-            };
+            
             setValues(defaultValue);
         }
 
@@ -206,19 +194,19 @@ export default function components() {
     }, []);
 
 
-    // useEffect(() => {
-    //     const preventDefault = (e) => {
-    //         e.preventDefault();
-    //     };
-    //
-    //     document.addEventListener('contextmenu', preventDefault);
-    //     document.addEventListener('keydown', preventDefault);
-    //
-    //     return () => {
-    //         document.removeEventListener('contextmenu', preventDefault);
-    //         document.removeEventListener('keydown', preventDefault);
-    //     };
-    // }, []);
+    useEffect(() => {
+        const preventDefault = (e) => {
+            e.preventDefault();
+        };
+    
+        document.addEventListener('contextmenu', preventDefault);
+        document.addEventListener('keydown', preventDefault);
+    
+        return () => {
+            document.removeEventListener('contextmenu', preventDefault);
+            document.removeEventListener('keydown', preventDefault);
+        };
+    }, []);
 
 
     useEffect(() => {
