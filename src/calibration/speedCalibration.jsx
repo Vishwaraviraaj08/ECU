@@ -49,7 +49,7 @@ export default function speedCalibration() {
         let intercept = speedMin - gain * voltageMin;
         document.getElementById("gain1").innerHTML = gain+"";
         document.getElementById("offset1").innerHTML = intercept+"";
-        renderChart([voltageMin, voltageMax, speedMin, speedMax]);
+        // renderChart([voltageMin, voltageMax, speedMin, speedMax]);
     }
 
     return (<>
@@ -66,9 +66,8 @@ export default function speedCalibration() {
 
         </style>
 
-        <div className="row mt-5">
-            <h2 className={"text-white"}>Speed Calibration</h2>
             <div className="col-6">
+            <h2 className={"text-white"}>Speed</h2>
                 <table className="table table-dark table-hover mb-5" >
                     <thead>
                     <tr>
@@ -91,19 +90,16 @@ export default function speedCalibration() {
                     <tr>
                         <td>Gain</td>
                         <td></td>
-                        <td><div id={"gain1"}>hello</div></td>
+                        <td><div id={"gain1"}></div></td>
                     </tr>
                     <tr>
                         <td>Offset</td>
                         <td></td>
-                        <td><div id={"offset1"}>hello</div></td>
+                        <td><div id={"offset1"}></div></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <div className="col-5 mx-auto">
-                <canvas id="speedChart" ></canvas>
-            </div>
-        </div>
+            
     </>)
 }

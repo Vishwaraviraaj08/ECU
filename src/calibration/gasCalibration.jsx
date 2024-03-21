@@ -49,7 +49,7 @@ export default function egtCalibration() {
         let intercept = temperatureMin - gain * voltageMin;
         document.getElementById("gain4").innerHTML = gain+"";
         document.getElementById("offset4").innerHTML = intercept+"";
-        renderChart([voltageMin, voltageMax, temperatureMin, temperatureMax]);
+        // renderChart([voltageMin, voltageMax, temperatureMin, temperatureMax]);
     }
 
     return (<>
@@ -66,9 +66,9 @@ export default function egtCalibration() {
 
         </style>
 
-        <div className="row mt-5">
-            <h2 className={"text-white"}>Speed Calibration</h2>
+        
             <div className="col-6">
+                <h2 className={"text-white"}>Gas Temperature</h2>
                 <table className="table table-dark table-hover mb-5" >
                     <thead>
                     <tr>
@@ -91,19 +91,16 @@ export default function egtCalibration() {
                     <tr>
                         <td>Gain</td>
                         <td></td>
-                        <td><div id={"gain4"}>hello</div></td>
+                        <td><div id={"gain4"}></div></td>
                     </tr>
                     <tr>
                         <td>Offset</td>
                         <td></td>
-                        <td><div id={"offset4"}>hello</div></td>
+                        <td><div id={"offset4"}></div></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <div className="col-5 mx-auto">
-                <canvas id="gasChart" ></canvas>
-            </div>
-        </div>
+            
     </>)
 }

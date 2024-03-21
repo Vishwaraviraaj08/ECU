@@ -51,7 +51,7 @@ export default function mapCalibration() {
         let intercept = pressureMin - gain * voltageMin;
         document.getElementById("gain2").innerHTML = gain+"";
         document.getElementById("offset2").innerHTML = intercept+"";
-        renderChart([voltageMin, voltageMax, pressureMin, pressureMax]);
+        // renderChart([voltageMin, voltageMax, pressureMin, pressureMax]);
     }
 
     return (<>
@@ -68,9 +68,8 @@ export default function mapCalibration() {
 
         </style>
 
-        <div className="row mt-5">
-            <h2 className={"text-white"}>Speed Calibration</h2>
             <div className="col-6">
+                <h2 className={"text-white"}>MAP</h2>
                 <table className="table table-dark table-hover mb-5" >
                     <thead>
                     <tr>
@@ -93,19 +92,16 @@ export default function mapCalibration() {
                     <tr>
                         <td>Gain</td>
                         <td></td>
-                        <td><div id={"gain2"}>hello</div></td>
+                        <td><div id={"gain2"}></div></td>
                     </tr>
                     <tr>
                         <td>Offset</td>
                         <td></td>
-                        <td><div id={"offset2"}>hello</div></td>
+                        <td><div id={"offset2"}></div></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <div className="col-5 mx-auto">
-                <canvas id="mapChart" ></canvas>
-            </div>
-        </div>
+            
     </>)
 }

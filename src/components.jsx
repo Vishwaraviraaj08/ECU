@@ -2,6 +2,9 @@ import React from 'react';
 import parse from 'html-react-parser';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
+import Navigation from './navigation/navigation';
+import Calibration from './calibration';
+import Correction from './correctionFactor/correction';
 
 
 const TableComponents = function ({ title, params }) {
@@ -58,7 +61,8 @@ export default function components() {
         Noofstrokes: '4',
         Fuelcorrectionfactor: '1',
         Nozzlesize: '1.4',
-        Noofcylinders: '1'
+        Noofcylinders: '1',
+        startingdose: '5.0'
     });
 
     useEffect(() => {
@@ -66,10 +70,11 @@ export default function components() {
         if (storedValues) {
             setValues(storedValues);
             // Set input values after setting state
-            const { Noofstrokes, Fuelcorrectionfactor, Nozzlesize, Noofcylinders } = storedValues;
+            const { Noofstrokes, Fuelcorrectionfactor, Nozzlesize, Noofcylinders, Startingdose } = storedValues;
 
             document.getElementById("Fuelcorrectionfactor").value = Fuelcorrectionfactor;
             document.getElementById("Nozzlesize").value = Nozzlesize;
+            document.getElementById("Startingdose").value = Startingdose;
 
             // Select the option for Noofstrokes
             const NoofstrokesSelect = document.getElementById("Noofstrokes");
@@ -96,15 +101,19 @@ export default function components() {
 
             const Fuelcorrectionfactor = document.getElementById("Fuelcorrectionfactor").value;
             const Nozzlesize = document.getElementById("Nozzlesize").value;
+            const Startingdose = document.getElementById("Startingdose").value;
 
             const Noofcylinders_e = document.getElementById("Noofcylinders");
             const Noofcylinders = Noofcylinders_e.options[Noofcylinders_e.selectedIndex].text;
+
+
 
             setValues({
                 Noofstrokes,
                 Fuelcorrectionfactor,
                 Nozzlesize,
-                Noofcylinders
+                Noofcylinders,
+                Startingdose
             });
 
 
@@ -112,7 +121,8 @@ export default function components() {
                 Noofstrokes,
                 Fuelcorrectionfactor,
                 Nozzlesize,
-                Noofcylinders
+                Noofcylinders,
+                Startingdose
             }));
         }, 100);
 
@@ -237,18 +247,18 @@ export default function components() {
             { name: "Fuel Correction Factor", unit: "n", input: `<input type="number" id="Fuelcorrectionfactor" defaultValue ="1" name={"params.name"}  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" step="0.05" min="0.05" max="1"/>` },
             { name: "Nozzle Size", unit: "mm", input: `<input type="number" id="Nozzlesize" name={"params.name"} defaultValue ="1.4"style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" step="0.1" min="1.0" max="2.5"/>` },
             { name: "No of Cylinders", unit: "n", input: `<select class="" id="Noofcylinders" style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;"> <option >1</option></select>` },
+            { name: "Starting dose", unit: "ms", input: `<input type="number" id="Startingdose" name={"params.name"} defaultValue ="5.0" style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" step="0.1" />` }
         ],
 
         dynamicInput: [
-            { name: "Engine Speed", unit: "RPM", input: '<input value="500" id="Enginespeed"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-            { name: "Manifold Absolute Pressure", unit: "Bar", input: '<input id="MAP" value="0.1"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-            { name: "Exhaust Temperatire", unit: "Deg C", input: '<input value="200" id="Exhausttemperature"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-            { name: "Gas Temperature", unit: "Deg C", input: '<input value="50" id="Gastemperature"  style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-        ],
-        dynamicOutput: [
+            { name: "Engine Speed", unit: "RPM", input: '<input value="500" id="Enginespeed" readonly style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "Manifold Absolute Pressure", unit: "Bar", input: '<input id="MAP" value="0.1" readonly style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "Exhaust Temperatire", unit: "Deg C", input: '<input value="200" id="Exhausttemperature" readonly style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "Gas Temperature", unit: "Deg C", input: '<input value="50" id="Gastemperature" readonly style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
+            { name: "Gas Presure", unit: "Bar", input: '<input value="1.2" id="Gaspressure" readonly style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
             { name: "PWM H", unit: "ms", input: '<input value="0" id="PWMH" readonly style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
             { name: "PWM L", unit: "ms", input: '<input value="0" id="PWML" readonly style="width:200px; padding-left: 20px; border-radius: 5px 0 0 5px;" />' },
-        ],
+        ]
 
     }
 
@@ -323,10 +333,7 @@ export default function components() {
                 <div className="col ">
 
                     <div className="row mb-5 d-flex flex-row justify-content-end align-items-center">
-                        <div style={{width: '150px'}} className={"me-5"}><Link to={'/calibration'}><button type="button" className="btn btn-primary">Calibrations</button></Link></div>
-                        <img src="/images/abhivijay.png" alt="" style={{width: '150px', height:'auto', objectFit: 'contain', }}/>
-                        <img src="/images/spark.png" alt="" style={{width: '150px', height:'auto', objectFit: 'contain', }}/>
-                        <img src="/images/vebu.png" alt="" style={{width: '150px', height:'auto', objectFit: 'contain', }}/>
+                        <Navigation />
                     </div>
                     
                     <div className="row  mb-4">
@@ -334,17 +341,12 @@ export default function components() {
                             <canvas id="myChart1" ></canvas>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col">
-                            <TableComponents title={"Dynamic Output"} params={tableData.dynamicOutput} />
-                        </div>
-                    </div>
 
                 </div>
             </div>
 
         </div>
-
-
+        <Calibration/>
+        <Correction/>
     </>)
 }
